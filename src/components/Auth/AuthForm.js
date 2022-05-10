@@ -1,9 +1,12 @@
 import React from "react";
+import AuthContext from "../../contexts/auth-context";
 import classes from "./AuthForm.module.sass";
 
 const AuthForm = () => {
   const emailInputRef = React.useRef();
   const passwordInputRef = React.useRef();
+
+  const authCtx = React.useContext(AuthContext);
 
   const [isLogin, setIsLogin] = React.useState(true);
   const [isLoading, setIsLoading] = React.useState(false);
@@ -52,7 +55,8 @@ const AuthForm = () => {
         }
       })
       .then((data) => {
-        console.log(data);
+        // console.log(data);
+        authCtx.login(data.idToken);
       })
       .catch((err) => {
         alert(err.message);
